@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Java面试个性化学习路径 | 免费AI定制</title>
+<meta name="description" content="输入你的当前水平、每天可用时间、目标方向→秒出定制化Java面试学习路线图。免费工具，支持分享。">
+<meta name="keywords" content="Java学习路线,面试学习计划,个性化学习路径,Java实习准备,2026春招">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:linear-gradient(135deg,#667eea,#764ba2);min-height:100vh;padding:20px}
+.container{max-width:700px;margin:0 auto}
+.card{background:#fff;border-radius:12px;padding:30px;margin-bottom:20px;box-shadow:0 10px 40px rgba(0,0,0,.15)}
+h1{font-size:24px;color:#1a1a1a;margin-bottom:8px}
+.subtitle{color:#666;font-size:14px;margin-bottom:25px}
+.form-group{margin-bottom:18px}
+label{display:block;font-weight:600;margin-bottom:6px;color:#333;font-size:14px}
+select,input[type="number"]{width:100%;padding:12px;border:2px solid #e0e0e0;border-radius:8px;font-size:15px;appearance:none;background:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23666'><polygon points='0,0 12,0 6,6'/></svg>") no-repeat right 12px center;background-size:12px}
+select:focus,input:focus{outline:none;border-color:#667eea;box-shadow:0 0 0 3px rgba(102,126,234,.15)}
+.btn{width:100%;padding:14px;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;border:none;border-radius:8px;font-size:16px;font-weight:600;cursor:pointer;transition:transform .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:translateY(0)}
+.result{display:none;background:#fff;border-radius:12px;padding:30px;margin-bottom:20px;box-shadow:0 10px 40px rgba(0,0,0,.15)}
+.plan-header{text-align:center;margin-bottom:20px;padding-bottom:20px;border-bottom:2px dashed #eee}
+.plan-header h2{color:#667eea;font-size:22px}
+.plan-header .meta{color:#666;font-size:13px;margin-top:8px}
+.phase{margin-bottom:20px;padding:15px;background:#f8f9fa;border-radius:8px;border-left:4px solid #667eea}
+.phase h3{color:#333;font-size:16px;margin-bottom:8px}
+.phase .days{color:#667eea;font-weight:600;font-size:13px;margin-bottom:8px}
+.phase ul{margin-left:20px;color:#555;font-size:14px}
+.phase ul li{margin:6px 0}
+.share-section{text-align:center;margin-top:20px;padding:15px;background:#f0f2ff;border-radius:8px}
+.share-btn{display:inline-block;padding:10px 25px;background:#667eea;color:#fff;border-radius:6px;text-decoration:none;font-size:14px;margin:5px;cursor:pointer}
+.donate{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;text-align:center;padding:25px;border-radius:12px;margin:20px 0}
+.donate h3{margin-bottom:10px}
+.nav{display:flex;flex-wrap:wrap;gap:6px;margin-top:20px;justify-content:center}
+.nav a{color:#667eea;text-decoration:none;font-size:12px;padding:4px 8px;border-radius:4px;background:#f0f2ff}
+.nav a:hover{background:#667eea;color:#fff}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="card">
+<h1>🗺️ Java面试个性化学习路径</h1>
+<p class="subtitle">告诉我你的情况 → AI秒出专属学习计划。不是千篇一律的路线图，是你的路线图。</p>
+
+<div class="form-group">
+<label>📊 你的当前水平</label>
+<select id="level">
+<option value="">-- 选择 --</option>
+<option value="beginner">🌱 入门：学过Java基础，没做过完整项目</option>
+<option value="junior">🌿 初级：做过1-2个项目，Spring Boot会用</option>
+<option value="mid">🌳 中级：有Spring Cloud经验，懂并发/JVM</option>
+<option value="advanced">🏆 高级：做过高并发项目，源码级理解</option>
+</select>
+</div>
+
+<div class="form-group">
+<label>⏰ 每天可用学习时间</label>
+<select id="time">
+<option value="">-- 选择 --</option>
+<option value="1">1小时/天（轻量）</option>
+<option value="3">3小时/天（常规）</option>
+<option value="6">6小时/天（冲刺）</option>
+<option value="10">10小时/天（全职脱产）</option>
+</select>
+</div>
+
+<div class="form-group">
+<label>🎯 目标方向</label>
+<select id="target">
+<option value="">-- 选择 --</option>
+<option value="intern">💼 找Java实习</option>
+<option value="fulltime">🎯 找Java全职</option>
+<option value="springboard">🚀 跳槽涨薪</option>
+<option value="foundation">📖 巩固基础（不求立即面试）</option>
+</select>
+</div>
+
+<div class="form-group">
+<label>📅 准备周期（周）</label>
+<input type="number" id="weeks" value="4" min="1" max="24" placeholder="例如：4">
+</div>
+
+<button class="btn" onclick="generatePath()">🎯 生成专属学习路径</button>
+</div>
+
+<div class="result" id="result">
+<div class="plan-header">
+<h2 id="planTitle">你的专属学习路径</h2>
+<div class="meta" id="planMeta"></div>
+</div>
+<div id="planContent"></div>
+<div class="share-section">
+<p style="margin-bottom:10px;font-size:14px">📤 分享给一起准备面试的朋友：</p>
+<button class="share-btn" onclick="copyLink()">📋 复制链接</button>
+<button class="share-btn" onclick="shareWechat()">💚 分享给微信好友</button>
+</div>
+</div>
+
+<div class="donate">
+<h3>☕ 这条路径帮你省了多少时间？</h3>
+<p style="margin:5px 0;font-size:13px">工具免费。觉得有用，扫码请杯咖啡 ☕</p>
+<p style="margin-top:8px;font-size:12px;opacity:.8">支持我继续更新更多面试资源</p>
+</div>
+
+<div class="nav">
+<strong>📦 更多免费工具：</strong>
+<a href="https://Abyte-zym.github.io/java-career-blog">📚 博客</a>
+<a href="https://Abyte-zym.github.io/java-resume-builder">📝 简历</a>
+<a href="https://Abyte-zym.github.io/java-interview-quiz">☕ 题库</a>
+<a href="https://Abyte-zym.github.io/java-interview-simulator">🎯 模拟</a>
+<a href="https://Abyte-zym.github.io/arsenal">🎯 弹药库</a>
+<a href="https://Abyte-zym.github.io/java-daily-challenge">☕ 每日挑战</a>
+</div>
+
+</div>
+
+<script>
+const PLANS = {
+  beginner_intern_1: [
+    {title:"第1周：Java核心速补", items:["HashMap源码（数组+链表+红黑树）","ArrayList vs LinkedList","String常量池","== vs equals","异常体系"]},
+    {title:"第2周：Spring Boot入门", items:["@SpringBootApplication原理","@RestController+@RequestMapping","@Autowired自动注入","application.yml配置","写3个REST接口练习"]},
+    {title:"第3周：数据库+Redis", items:["MySQL索引B+树","SQL慢查询EXPLAIN","Redis5种数据类型","缓存穿透/击穿/雪崩","写一个CRUD Demo"]},
+    {title:"第4周：项目+面试", items:["GitHub找开源项目看懂架构","背10道Java基础面试题","模拟面试录音自测","投简历（每天30-50家）"]}
+  ],
+  beginner_intern_3: [
+    {title:"第1周：Java核心+集合源码", items:["HashMap 1.7 vs 1.8","ConcurrentHashMap原理","ArrayList扩容","JVM内存区域","GC算法（标记清除/复制）","equals/hashCode重写"]},
+    {title:"第2周：Spring Boot实战", items:["IoC容器原理","AOP动态代理","@Transactional失效场景","Spring MVC请求流程","Spring Boot自动配置源码","写一个完整CRUD项目"]},
+    {title:"第3周：数据库深入", items:["MySQL索引B+树原理","EXPLAIN执行计划","SQL优化实战","Redis持久化RDB/AOF","分布式锁Redisson","缓存三穿问题方案"]},
+    {title:"第4周：面试冲刺", items:["刷LeetCode Hot100（每天3题）","背30道面试高频题","做2个项目（RAG+秒杀）","投简历（每天80-100家）","模拟面试3次"]}
+  ],
+  junior_intern_3: [
+    {title:"第1周：并发+JVM深耕", items:["synchronized锁升级","AQS+ReentrantLock","线程池7参数调优","JVM GC收集器(CMS/G1/ZGC)","类加载双亲委派","OOM排查实战"]},
+    {title:"第2周：分布式+微服务", items:["CAP理论","分布式事务(Seata/消息表)","Spring Cloud Alibaba全家桶","Nacos注册中心配置中心","Sentinel限流熔断","RocketMQ削峰"]},
+    {title:"第3周：AI+项目升级", items:["Spring AI接入大模型","RAG核心流程","向量数据库Milvus","Prompt工程","给简历项目加AI亮点","写一个完整RAG项目"]},
+    {title:"第4周：大厂面试冲刺", items:["系统设计(秒杀/短URL/Feed)","手撕代码每日3题","背50道高频面试题","投大厂子公司（80家+）","面试录音复盘"]}
+  ],
+  mid_fulltime_6: [
+    {title:"第1-2周：源码级理解", items:["Spring IoC源码（Bean生命周期）","Spring Boot自动配置源码","MyBatis插件机制","Redis源码（SDS/跳跃表）","Netty Reactor模型","RocketMQ存储设计"]},
+    {title:"第3-4周：系统设计+架构", items:["秒杀系统完整设计","分布式ID（雪花算法优化）","分布式锁（Redisson看门狗）","限流算法（令牌桶/漏桶）","缓存一致性方案","分库分表实战"]},
+    {title:"第5-6周：AI+冲刺", items:["RAG系统完整实现","Spring AI 2.0新特性","Agent多步推理","大模型微调基础","刷LeetCode 200题","模拟大厂面试5次"]}
+  ]
+};
+
+function generatePath() {
+  const level = document.getElementById('level').value;
+  const time = document.getElementById('time').value;
+  const target = document.getElementById('target').value;
+  const weeks = parseInt(document.getElementById('weeks').value) || 4;
+  
+  if (!level || !time || !target) {
+    alert('请选完所有选项！');
+    return;
+  }
+  
+  let key = level + '_' + target + '_' + time;
+  let plan = PLANS[key];
+  
+  // Fallback: generate from closest match
+  if (!plan) {
+    if (level === 'beginner') key = 'beginner_intern_1';
+    else if (level === 'junior') key = 'junior_intern_3';
+    else if (level === 'mid') key = 'mid_fulltime_6';
+    else key = 'junior_intern_3';
+    plan = PLANS[key] || PLANS['junior_intern_3'];
+  }
+  
+  // Adjust phases based on weeks
+  const phasesPerWeek = Math.max(1, Math.ceil(plan.length / weeks));
+  
+  document.getElementById('planTitle').textContent = 
+    level === 'beginner' ? '🌱 零基础入门→面试Offer' :
+    level === 'junior' ? '🌿 初级进阶→大厂面试' :
+    level === 'mid' ? '🌳 中级冲刺→架构级面试' : '🏆 高级→Offer收割机';
+  
+  document.getElementById('planMeta').textContent = 
+    `每天${time}小时 · ${weeks}周 · ` + 
+    (target === 'intern' ? '找实习' : target === 'fulltime' ? '找全职' : target === 'springboard' ? '跳槽涨薪' : '巩固基础');
+  
+  let html = '';
+  for (let i = 0; i < plan.length; i++) {
+    const phase = plan[i];
+    html += `<div class="phase">
+      <h3>📌 ${phase.title}</h3>
+      <div class="days">⏱ 预计第${i+1}阶段</div>
+      <ul>${phase.items.map(item => '<li>✅ ' + item + '</li>').join('')}</ul>
+    </div>`;
+  }
+  
+  html += `<div style="background:#fff3cd;padding:15px;border-radius:8px;margin-top:20px;font-size:14px">
+    <strong>💡 执行建议：</strong>
+    <p style="margin-top:8px">① 每天开始前5分钟回顾昨天学的 → ② 学2个知识点 → ③ 手写代码验证 → ④ 睡前默写一遍。坚持${weeks}周，面试时你会感谢现在的自己。</p>
+  </div>`;
+  
+  document.getElementById('planContent').innerHTML = html;
+  document.getElementById('result').style.display = 'block';
+  document.getElementById('result').scrollIntoView({behavior:'smooth'});
+}
+
+function copyLink() {
+  const url = window.location.href;
+  navigator.clipboard.writeText(url).then(() => {
+    alert('链接已复制！分享给一起准备面试的朋友吧 📤');
+  });
+}
+
+function shareWechat() {
+  alert('请截图当前页面 → 微信扫码分享给好友 💚');
+}
+</script>
+</body>
+</html>
